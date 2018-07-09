@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using TagControl.Common;
 
 namespace WPFTagControl
 {
@@ -25,6 +26,8 @@ namespace WPFTagControl
 
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
 
+        public TagObject Value = null;
+
         static TagItem()
         {
             // lookless control, get default style from generic.xaml
@@ -35,10 +38,11 @@ namespace WPFTagControl
         {
         }
 
-        public TagItem(string text)
+        public TagItem(TagObject item)
             : this()
         {
-            Text = text;
+            Value = item;
+            Text = Value.Text;
         }
 
         // Text

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using TagControl.Common;
 
 namespace WPFTagControl
 {
@@ -17,11 +18,11 @@ namespace WPFTagControl
     public class TagControl : ListBox
     {
         public static readonly DependencyProperty SelectedTagsProperty = DependencyProperty.Register("SelectedTags",
-            typeof (IList<string>), typeof (TagControl), new FrameworkPropertyMetadata(null, OnSelectedTagsChanged));
+            typeof (IList<TagObject>), typeof (TagControl), new FrameworkPropertyMetadata(null, OnSelectedTagsChanged));
 
 
         public static readonly DependencyProperty SuggestedTagsProperty = DependencyProperty.Register("SuggestedTags",
-            typeof (IList<string>), typeof (TagControl), new PropertyMetadata(null));
+            typeof (IList<TagObject>), typeof (TagControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty AddNewTagTextProperty = DependencyProperty.Register("AddNewTagText",
             typeof (string), typeof (TagControl), new PropertyMetadata(null));
@@ -44,23 +45,23 @@ namespace WPFTagControl
             TagAdded += (s, e) => RaiseTagsChanged();
             TagRemoved += (s, e) => RaiseTagsChanged();
             TagEdited += (s, e) => RaiseTagsChanged();
-            SuggestedTags = new List<string>();
+            SuggestedTags = new List<TagObject>();
         }
 
-        public IList<string> SelectedTags
+        public IList<TagObject> SelectedTags
         {
-            get { return (IList<string>) GetValue(SelectedTagsProperty); }
+            get { return (IList<TagObject>) GetValue(SelectedTagsProperty); }
             set { SetValue(SelectedTagsProperty, value); }
         }
 
-        public List<string> PossibleSuggestedTags
+        public List<TagObject> PossibleSuggestedTags
         {
             get
             {
                 if (!ReferenceEquals(ItemsSource, null) && ((IList<TagItem>) ItemsSource).Any())
                 {
                     var tokenizedTagItems = (IList<TagItem>) ItemsSource;
-                    var typedTags = tokenizedTagItems.Select(item => item.Text);
+                    var typedTags = tokenizedTagItems.Select(item => item.Value);
                     return SuggestedTags?
                         .Except(typedTags)
                         .ToList();
@@ -69,9 +70,9 @@ namespace WPFTagControl
             }
         }
 
-        public List<string> SuggestedTags
+        public List<TagObject> SuggestedTags
         {
-            get { return (List<string>) GetValue(SuggestedTagsProperty); }
+            get { return (List<TagObject>) GetValue(SuggestedTagsProperty); }
             set { SetValue(SuggestedTagsProperty, value); }
         }
 
@@ -92,7 +93,7 @@ namespace WPFTagControl
         private static void OnSelectedTagsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var c = (TagControl) d;
-            c.ItemsSource = ((IList<string>) e.NewValue).Select(i => new TagItem(i)).ToList();
+            c.ItemsSource = ((IList<TagObject>) e.NewValue).Select(i => new TagItem(i)).ToList();
         }
 
         private void UpdateSelectedTagsOnRemove(TagItem removedTag)
@@ -100,7 +101,7 @@ namespace WPFTagControl
             if (removedTag == null)
                 return;
             if (!string.IsNullOrEmpty(removedTag.Text)) // Remove if delete button was clicked
-                SelectedTags.Remove(removedTag.Text);
+                SelectedTags.Remove(removedTag.Value);
             else  // Remove if backspace was used to delete tag (TagItem Text was changed to empty and was then removed)
             {
                 var source = (IList<TagItem>) ItemsSource;
@@ -119,7 +120,7 @@ namespace WPFTagControl
                 SelectedTags.Where(i => source.All(s => !s.Text.Equals(i) || i.Equals(addedTag.Text)))
                     .ToList()
                     .ForEach(r => SelectedTags.Remove(r));
-            SelectedTags.Add(addedTag.Text);
+            SelectedTags.Add(addedTag.Value);
         }
 
         public event EventHandler<TagEventArgs> TagClick;
@@ -208,7 +209,7 @@ namespace WPFTagControl
             {
                 for (int i = 0; i < source.Count; i++)
                 {
-                    SelectedTags[i] = source[i].Text;
+                    SelectedTags[i] = source[i].Value;
                 }
             }
         }

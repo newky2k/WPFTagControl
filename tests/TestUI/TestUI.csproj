@@ -102,6 +102,10 @@
       <Project>{EED8C161-97D2-4802-9F56-D694F9D84EE0}</Project>
       <Name>WPFTagControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\TagControl.Common\TagControl.Common.csproj">
+      <Project>{9dd8cc55-e122-423d-a110-cf56462874c4}</Project>
+      <Name>TagControl.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

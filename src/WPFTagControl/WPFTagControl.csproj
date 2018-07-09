@@ -93,4 +93,10 @@
       <Paket>True</Paket>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TagControl.Common\TagControl.Common.csproj">
+      <Project>{9dd8cc55-e122-423d-a110-cf56462874c4}</Project>
+      <Name>TagControl.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

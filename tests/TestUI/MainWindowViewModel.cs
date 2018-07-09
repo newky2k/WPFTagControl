@@ -5,24 +5,48 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using TagControl.Common;
 using WPFTagControl;
 
 namespace TestUI
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private List<string> suggestedTags;
-        private ObservableCollection<string> selectedTags;
+        private List<TagObject> suggestedTags;
+        private ObservableCollection<TagObject> selectedTags;
 
         public MainWindowViewModel()
         {
-            SuggestedTags = new List<string> {"Tag 1", "Tag 2", "Tag 3"};
-            SelectedTags = new ObservableCollection<string>{ "TestTag"};
+            SuggestedTags = new List<TagObject> {
+                new TagObject()
+                {
+                     Text = "Tag 1",
+                        Value = 0,
+                },
+                new TagObject()
+                {
+                     Text = "Tag 2",
+                        Value = 1,
+                },
+                new TagObject()
+                {
+                     Text = "Tag 3",
+                        Value = 2,
+                },
+            };
+
+
+            SelectedTags = new ObservableCollection<TagObject>(new List<TagObject> { new TagObject()
+            {
+                 Text = "TestTag",
+                    Value = 0,
+            } });
+
             SelectedTags.CollectionChanged += (sender, args) => 
             Debug.WriteLine("SelectedTagsCollectionChanged: " + SelectedTags.Aggregate("", (s,i)=> $"{s} {i}"));
         }
 
-        public List<string> SuggestedTags
+        public List<TagObject> SuggestedTags
         {
             get { return suggestedTags; }
             set
@@ -34,7 +58,7 @@ namespace TestUI
         }
 
 
-        public ObservableCollection<string> SelectedTags
+        public ObservableCollection<TagObject> SelectedTags
         {
             get { return selectedTags; }
             set
@@ -64,7 +88,11 @@ namespace TestUI
 
         public void SetTagsFromViewModel()
         {
-            SelectedTags = new ObservableCollection<string>(new List<string> { "Test from VM"}); //Workaround: SelectedTags.Add("Tag") does not work
+            SelectedTags = new ObservableCollection<TagObject>(new List<TagObject> { new TagObject()
+            {
+                 Text = "Test from VM",
+                    Value = 1,
+            } }); //Workaround: SelectedTags.Add("Tag") does not work
         }
     }
 }
