@@ -33,6 +33,9 @@ namespace WPFTagControl
 
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
 
+        //public static readonly DependencyProperty MaxHeightProperty = DependencyProperty.Register("MaxHeight",
+        //    typeof(double), typeof(TagControl), new PropertyMetadata(60));
+
         static TagControl()
         {
             // lookless control, get default style from generic.xaml
@@ -81,6 +84,12 @@ namespace WPFTagControl
             get { return (string) GetValue(AddNewTagTextProperty); }
             set { SetValue(AddNewTagTextProperty, value); }
         }
+
+        //public double MaxHeight
+        //{
+        //    get { return (double)GetValue(MaxHeightProperty); }
+        //    set { SetValue(MaxHeightProperty, value); }
+        //}
 
         // IsEditing, readonly
         public bool IsEditing
@@ -147,8 +156,8 @@ namespace WPFTagControl
             var tagIcon = GetTemplateChild("PART_TagIcon") as Path;
             if (tagIcon != null)
             {
-                tagIcon.MouseUp -= createBtn_Click;
-                tagIcon.MouseUp += createBtn_Click;
+                //tagIcon.MouseUp -= createBtn_Click;
+                //tagIcon.MouseUp += createBtn_Click;
             }
 
             base.OnApplyTemplate();

@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFTagControl">
+    <SolidColorBrush x:Key="TagHighlightBrush" Color="White" />
+
+
+    <SolidColorBrush x:Key="TagForegroundBrush" Color="White"/>
+
+    <LinearGradientBrush x:Key="TagBackgroundBrush" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#5890f0" />
+        <GradientStop Offset="1" Color="#0351d7" />
+    </LinearGradientBrush>
+    
+</ResourceDictionary>

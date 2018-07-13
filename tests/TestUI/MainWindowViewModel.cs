@@ -88,11 +88,36 @@ namespace TestUI
 
         public void SetTagsFromViewModel()
         {
-            SelectedTags = new ObservableCollection<TagObject>(new List<TagObject> { new TagObject()
+            SelectedTags = new ObservableCollection<TagObject>(new List<TagObject>
             {
-                 Text = "Test from VM",
-                    Value = 1,
-            } }); //Workaround: SelectedTags.Add("Tag") does not work
+                new TagObject()
+                {
+                     Text = "Test from VM",
+                        Value = 1,
+                },
+                new TagObject()
+                {
+                     Text = "Test from VM 2",
+                        Value = 2,
+                },
+                new TagObject()
+                {
+                     Text = "Test from VM 3",
+                        Value = 2,
+                },
+                new TagObject()
+                {
+                     Text = "Test from VM 3",
+                        Value = 3,
+                },
+                                                new TagObject()
+                {
+                     Text = "Test from VM 3",
+                        Value = 4,
+                },
+
+
+            }); //Workaround: SelectedTags.Add("Tag") does not work
         }
     }
 }
