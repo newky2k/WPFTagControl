@@ -26,7 +26,7 @@ namespace WPFTagControl
 
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
 
-        public TagObject Value = null;
+        public object Value = null;
 
         static TagItem()
         {
@@ -42,7 +42,13 @@ namespace WPFTagControl
             : this()
         {
             Value = item;
-            Text = Value.Text;
+            Text = item.Text;
+        }
+
+        public TagItem(object item, string text) : this()
+        {
+            Value = item;
+            Text = text;
         }
 
         // Text

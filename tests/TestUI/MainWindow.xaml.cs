@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using WPFTagControl;
 
 namespace TestUI
@@ -21,6 +22,7 @@ namespace TestUI
         private void Ctl_Tags_TagAdded(object sender, TagEventArgs e)
         {
             LastAdded.Content = e.Item.Text;
+
         }
 
         private void Ctl_Tags_TagClick(object sender, TagEventArgs e)

@@ -20,10 +20,6 @@ namespace WPFTagControl
         public static readonly DependencyProperty SelectedTagsProperty = DependencyProperty.Register("SelectedTags",
             typeof (IList<TagObject>), typeof (TagControl), new FrameworkPropertyMetadata(null, OnSelectedTagsChanged));
 
-
-        public static readonly DependencyProperty SuggestedTagsProperty = DependencyProperty.Register("SuggestedTags",
-            typeof (IList<TagObject>), typeof (TagControl), new PropertyMetadata(null));
-
         public static readonly DependencyProperty AddNewTagTextProperty = DependencyProperty.Register("AddNewTagText",
             typeof (string), typeof (TagControl), new PropertyMetadata(null));
 
@@ -33,8 +29,8 @@ namespace WPFTagControl
 
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
 
-        //public static readonly DependencyProperty MaxHeightProperty = DependencyProperty.Register("MaxHeight",
-        //    typeof(double), typeof(TagControl), new PropertyMetadata(60));
+        public static readonly DependencyProperty DisplayMemeberPathProperty = DependencyProperty.Register("DisplayMemeberPath", typeof(string), typeof(TagControl), new PropertyMetadata(null));
+
 
         static TagControl()
         {
@@ -48,7 +44,7 @@ namespace WPFTagControl
             TagAdded += (s, e) => RaiseTagsChanged();
             TagRemoved += (s, e) => RaiseTagsChanged();
             TagEdited += (s, e) => RaiseTagsChanged();
-            SuggestedTags = new List<TagObject>();
+            
         }
 
         public IList<TagObject> SelectedTags
@@ -57,39 +53,17 @@ namespace WPFTagControl
             set { SetValue(SelectedTagsProperty, value); }
         }
 
-        public List<TagObject> PossibleSuggestedTags
-        {
-            get
-            {
-                if (!ReferenceEquals(ItemsSource, null) && ((IList<TagItem>) ItemsSource).Any())
-                {
-                    var tokenizedTagItems = (IList<TagItem>) ItemsSource;
-                    var typedTags = tokenizedTagItems.Select(item => item.Value);
-                    return SuggestedTags?
-                        .Except(typedTags)
-                        .ToList();
-                }
-                return SuggestedTags;
-            }
-        }
-
-        public List<TagObject> SuggestedTags
-        {
-            get { return (List<TagObject>) GetValue(SuggestedTagsProperty); }
-            set { SetValue(SuggestedTagsProperty, value); }
-        }
-
         public string AddNewTagText
         {
             get { return (string) GetValue(AddNewTagTextProperty); }
             set { SetValue(AddNewTagTextProperty, value); }
         }
 
-        //public double MaxHeight
-        //{
-        //    get { return (double)GetValue(MaxHeightProperty); }
-        //    set { SetValue(MaxHeightProperty, value); }
-        //}
+        public string DisplayMemeberPath
+        {
+            get { return (string)GetValue(DisplayMemeberPathProperty); }
+            set { SetValue(DisplayMemeberPathProperty, value); }
+        }
 
         // IsEditing, readonly
         public bool IsEditing
@@ -110,7 +84,7 @@ namespace WPFTagControl
             if (removedTag == null)
                 return;
             if (!string.IsNullOrEmpty(removedTag.Text)) // Remove if delete button was clicked
-                SelectedTags.Remove(removedTag.Value);
+                SelectedTags.Remove(((TagObject)removedTag.Value));
             else  // Remove if backspace was used to delete tag (TagItem Text was changed to empty and was then removed)
             {
                 var source = (IList<TagItem>) ItemsSource;
@@ -129,7 +103,7 @@ namespace WPFTagControl
                 SelectedTags.Where(i => source.All(s => !s.Text.Equals(i) || i.Equals(addedTag.Text)))
                     .ToList()
                     .ForEach(r => SelectedTags.Remove(r));
-            SelectedTags.Add(addedTag.Value);
+            SelectedTags.Add((TagObject)addedTag.Value));
         }
 
         public event EventHandler<TagEventArgs> TagClick;
