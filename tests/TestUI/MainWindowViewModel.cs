@@ -15,6 +15,9 @@ namespace TestUI
         private List<TagObject> suggestedTags;
         private ObservableCollection<TagObject> selectedTags;
 
+        private IEnumerable<Thing> tags;
+
+
         public MainWindowViewModel()
         {
             SuggestedTags = new List<TagObject> {
@@ -42,6 +45,15 @@ namespace TestUI
                     Value = 0,
             } });
 
+            Tags = new ObservableCollection<Thing>()
+            {
+                new Thing()
+                {
+                    Name = "Tag 2",
+                    Value = 1,
+                },
+            };
+
             SelectedTags.CollectionChanged += (sender, args) => 
             Debug.WriteLine("SelectedTagsCollectionChanged: " + SelectedTags.Aggregate("", (s,i)=> $"{s} {i}"));
         }
@@ -53,6 +65,18 @@ namespace TestUI
             {
                 if (suggestedTags == value) return;
                 suggestedTags = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public IEnumerable<Thing> Tags
+        {
+            get { return tags; }
+            set
+            {
+                if (tags == value) return;
+                tags = value;
                 OnPropertyChanged();
             }
         }
@@ -118,6 +142,45 @@ namespace TestUI
 
 
             }); //Workaround: SelectedTags.Add("Tag") does not work
+
+            Tags = new ObservableCollection<Thing>()
+            {
+                new Thing()
+                {
+                     Name = "Test from VM",
+                        Value = 1,
+                },
+                new Thing()
+                {
+                     Name = "Test from VM 2",
+                        Value = 2,
+                },
+                new Thing()
+                {
+                     Name = "Test from VM 3",
+                        Value = 2,
+                },
+                new Thing()
+                {
+                     Name = "Test from VM 3",
+                        Value = 3,
+                },
+                new Thing()
+                {
+                     Name = "Test from VM 3",
+                        Value = 4,
+                },
+
+            };
+        }
+
+        public void AddedNewItemToViewModel()
+        {
+            ((ObservableCollection<Thing>)Tags).Add(new Thing()
+            {
+                Name="New Thing",
+                Value = 5,
+            });
         }
     }
 }

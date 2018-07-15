@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -17,8 +18,7 @@ namespace WPFTagControl
     [TemplatePart(Name = "PART_CreateTagButton", Type = typeof (Button))]
     public class TagControl : ListBox
     {
-        public static readonly DependencyProperty SelectedTagsProperty = DependencyProperty.Register("SelectedTags",
-            typeof (IList<TagObject>), typeof (TagControl), new FrameworkPropertyMetadata(null, OnSelectedTagsChanged));
+        public static readonly DependencyProperty TagsProperty = DependencyProperty.Register("Tags",typeof(IEnumerable), typeof(TagControl), new FrameworkPropertyMetadata(null, OnTagsChanged));
 
         public static readonly DependencyProperty AddNewTagTextProperty = DependencyProperty.Register("AddNewTagText",
             typeof (string), typeof (TagControl), new PropertyMetadata(null));
@@ -28,9 +28,6 @@ namespace WPFTagControl
                 new FrameworkPropertyMetadata(false));
 
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
-
-        public static readonly DependencyProperty DisplayMemeberPathProperty = DependencyProperty.Register("DisplayMemeberPath", typeof(string), typeof(TagControl), new PropertyMetadata(null));
-
 
         static TagControl()
         {
@@ -47,22 +44,17 @@ namespace WPFTagControl
             
         }
 
-        public IList<TagObject> SelectedTags
+        public IEnumerable Tags
         {
-            get { return (IList<TagObject>) GetValue(SelectedTagsProperty); }
-            set { SetValue(SelectedTagsProperty, value); }
+            get { return (IEnumerable)GetValue(TagsProperty); }
+            set { SetValue(TagsProperty, value); }
         }
+
 
         public string AddNewTagText
         {
             get { return (string) GetValue(AddNewTagTextProperty); }
             set { SetValue(AddNewTagTextProperty, value); }
-        }
-
-        public string DisplayMemeberPath
-        {
-            get { return (string)GetValue(DisplayMemeberPathProperty); }
-            set { SetValue(DisplayMemeberPathProperty, value); }
         }
 
         // IsEditing, readonly
@@ -72,26 +64,48 @@ namespace WPFTagControl
             internal set { SetValue(IsEditingPropertyKey, value); }
         }
 
-
-        private static void OnSelectedTagsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnTagsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var c = (TagControl) d;
-            c.ItemsSource = ((IList<TagObject>) e.NewValue).Select(i => new TagItem(i)).ToList();
+
+            var aPath = c.DisplayMemberPath;
+
+            c.ItemsSource = ((IEnumerable<object>) e.NewValue).Select(i => new TagItem(i, i.ToString())).ToList();
+
+            if (e.NewValue is INotifyCollectionChanged)
+            {
+                ((INotifyCollectionChanged)e.NewValue).CollectionChanged -= c.OnTagsCollectionChanged;
+                ((INotifyCollectionChanged)e.NewValue).CollectionChanged += c.OnTagsCollectionChanged;
+            }
+        }
+
+        private void OnTagsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                var c = this;
+
+               var aPath = c.DisplayMemberPath;
+
+                
+                c.ItemsSource = ((IEnumerable<object>)Tags).Select(i => new TagItem(i, i.ToString())).ToList();
+            }
+            
+
         }
 
         private void UpdateSelectedTagsOnRemove(TagItem removedTag)
         {
             if (removedTag == null)
                 return;
-            if (!string.IsNullOrEmpty(removedTag.Text)) // Remove if delete button was clicked
-                SelectedTags.Remove(((TagObject)removedTag.Value));
-            else  // Remove if backspace was used to delete tag (TagItem Text was changed to empty and was then removed)
+
+            var its = Tags;
+
+            if (its is IList)
             {
-                var source = (IList<TagItem>) ItemsSource;
-                SelectedTags.Where(i => source.All(s => !s.Text.Equals(i)))
-                    .ToList()
-                    .ForEach(r => SelectedTags.Remove(r));
+                ((IList)its).Remove(removedTag.Value);
             }
+
         }
 
 
@@ -99,11 +113,11 @@ namespace WPFTagControl
         private void UpdateSelectedTagsOnAdd(TagItem addedTag)
         {
             var source = (IList<TagItem>) ItemsSource;
-            if (source.Count == SelectedTags.Count) //Update SelectedTags list if user edits tags
-                SelectedTags.Where(i => source.All(s => !s.Text.Equals(i) || i.Equals(addedTag.Text)))
-                    .ToList()
-                    .ForEach(r => SelectedTags.Remove(r));
-            SelectedTags.Add((TagObject)addedTag.Value));
+            //if (source.Count == SelectedTags.Count) //Update SelectedTags list if user edits tags
+            //    SelectedTags.Where(i => source.All(s => !s.Text.Equals(i) || i.Equals(addedTag.Text)))
+            //        .ToList()
+            //        .ForEach(r => SelectedTags.Remove(r));
+           // SelectedTags.Add(((TagObject)addedTag.Value));
         }
 
         public event EventHandler<TagEventArgs> TagClick;
@@ -188,13 +202,13 @@ namespace WPFTagControl
         private void UpdateSelectedTagsOnEdit()
         {
             var source = (IList<TagItem>)ItemsSource; //ZUVIELE EVENTS WERDEN GESCHMISSEN
-            if (source.Count == SelectedTags.Count)
-            {
-                for (int i = 0; i < source.Count; i++)
-                {
-                    SelectedTags[i] = source[i].Value;
-                }
-            }
+            //if (source.Count == SelectedTags.Count)
+            //{
+            //    for (int i = 0; i < source.Count; i++)
+            //    {
+            //        SelectedTags[i] = (TagObject)source[i].Value;
+            //    }
+            //}
         }
 
         private void RaiseTagRemoved(TagItem tag)
