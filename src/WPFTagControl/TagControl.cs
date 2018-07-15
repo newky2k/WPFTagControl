@@ -68,9 +68,7 @@ namespace WPFTagControl
         {
             var c = (TagControl) d;
 
-            var aPath = c.DisplayMemberPath;
-
-            c.ItemsSource = ((IEnumerable<object>) e.NewValue).Select(i => new TagItem(i, i.ToString())).ToList();
+            c.ItemsSource = ((IEnumerable<object>) e.NewValue).Select(i => new TagItem(i, i.GetMemberValue<string>(c.DisplayMemberPath))).ToList();
 
             if (e.NewValue is INotifyCollectionChanged)
             {
@@ -83,12 +81,8 @@ namespace WPFTagControl
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                var c = this;
-
-               var aPath = c.DisplayMemberPath;
-
-                
-                c.ItemsSource = ((IEnumerable<object>)Tags).Select(i => new TagItem(i, i.ToString())).ToList();
+                var c = this;                
+                c.ItemsSource = ((IEnumerable<object>)Tags).Select(i => new TagItem(i, i.GetMemberValue<string>(c.DisplayMemberPath))).ToList();
             }
             
 

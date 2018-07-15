@@ -12,7 +12,7 @@
         mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Stretch">
         <cont:TagControl x:Name="ctl_Tags" BorderBrush="Gray" BorderThickness="1"
-                         VerticalAlignment="Stretch" DisplayMemberPath="Text"  Tags="{Binding Tags}"
+                         VerticalAlignment="Stretch" Tags="{Binding Tags}"
    
                          MaxHeight="74">
         </cont:TagControl>
