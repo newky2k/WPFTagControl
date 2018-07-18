@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>AltWPFTagControl</id>
+    <version>1.0.2</version>
+    <title>Alt WPFTagControl</title>
+    <authors>Kai Timmermann, newky2k</authors>
+    <owners>Kai Timmermann, newky2k</owners>
+    <licenseUrl>http://github.com/2moveit/WPFTagControl/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/newky2k/WPFTagControl</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/2moveit/WPFTagControl/master/docs/files/img/logo.png</iconUrl>
+    <description>Alternative version of Kai Timmermann's WPF control to add/remove/edit tags/tokens
+    
+    Differences:
+      - Can be databound to any object (using Tags and DisplayMemberPath)
+      - Scrollable view when there are two many Tags
+      - Can be styled/themed to change the color, foreground and tags background
+      - Tags are added via the datamodel not through the control itself
+
+    </description>
+    <summary>Alternate WPF control for tags/tokens based on Kai Timmermann's WPFTagControl</summary>
+    <releaseNotes>Fixed issue with the DisplayMemberPath</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>WPF Control Token Tag</tags>
+    <dependencies>
+      <dependency id="WPFToolkit" version="3.5.50211.1" />
+    </dependencies>
+  </metadata>
+</package>

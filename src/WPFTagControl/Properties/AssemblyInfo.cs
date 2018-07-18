@@ -5,6 +5,6 @@ using System.Windows;
 [assembly: AssemblyTitleAttribute("WPFTagControl")]
 [assembly: AssemblyProductAttribute("WPFTagControl")]
 [assembly: AssemblyDescriptionAttribute("WPF control for tags/tokens")]
-[assembly: AssemblyVersionAttribute("0.4.2")]
-[assembly: AssemblyFileVersionAttribute("0.4.2")]
+[assembly: AssemblyVersion("1.0.2")]
+[assembly: AssemblyFileVersion("1.0.2")]
 [assembly: ThemeInfoAttribute(ResourceDictionaryLocation.SourceAssembly, ResourceDictionaryLocation.SourceAssembly)]

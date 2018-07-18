@@ -14,7 +14,7 @@ namespace WPFTagControl
             object objValue = null;
 
 
-            if (string.IsNullOrWhiteSpace(memberName))
+            if (!string.IsNullOrWhiteSpace(memberName))
             {
                 var typ = target.GetType().GetTypeInfo();
 
