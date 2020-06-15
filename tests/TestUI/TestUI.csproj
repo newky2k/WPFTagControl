@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TagObject.cs" />
     <Compile Include="Thing.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -99,10 +100,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TagControl.Common\TagControl.Common.csproj">
-      <Project>{75ccb039-4cfc-4167-8c1b-2d08a7ee690c}</Project>
-      <Name>TagControl.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\WPFTagControl\WPFTagControl.csproj">
       <Project>{62ed0246-7b98-4723-9307-f7b7b0ac5574}</Project>
       <Name>WPFTagControl</Name>

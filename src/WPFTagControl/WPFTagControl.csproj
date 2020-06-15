@@ -5,13 +5,53 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>WPFTagControl</RootNamespace>
     <AssemblyName>WPFTagControl</AssemblyName>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <PackageId>AltWPFTagControl</PackageId>
+    <Version>2.0</Version>
+    <Authors>newky2k</Authors>
+    <Description>WPF Tag Control, based on Kai Timmermann's WPF Tag control, to add/remove/edit tags/tokens
+    
+Differences:
+     - Can be databound to any object (using Tags and DisplayMemberPath)
+     - Scrollable view when there are two many Tags
+     - Can be styled/themed to change the color, foreground and tags background
+     - Tags are added via the datamodel not through the control itself
+     - Works with .Net Framework and .Net Core 3.x and above</Description>
+    <Copyright>Copyright 2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>WPF Control Token Tag</PackageTags>
+    <PackageProjectUrl>https://github.com/newky2k/WPFTagControl</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/newky2k/WPFTagControl</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageReleaseNotes>Refactored into a multi-targeting .Net Core compatible library</PackageReleaseNotes>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>DSoft.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <!-- sourcelink: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- sourcelink: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- sourcelink: Include PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    
+  </PropertyGroup>
+  
   <ItemGroup>
+    
     <PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.0.84" />
     <PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.0.84" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Page Update="Themes\ColorsAndIcons.xaml">
       <SubType>Designer</SubType>

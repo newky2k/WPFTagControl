@@ -6,8 +6,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ED8079DD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUI", "tests\TestUI\TestUI.csproj", "{6F895341-7A4F-4988-BC98-8126F199E7CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagControl.Common", "src\TagControl.Common\TagControl.Common.csproj", "{75CCB039-4CFC-4167-8C1B-2D08A7EE690C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFTagControl", "src\WPFTagControl\WPFTagControl.csproj", "{62ED0246-7B98-4723-9307-F7B7B0AC5574}"
 EndProject
 Global
@@ -20,10 +18,6 @@ Global
 		{6F895341-7A4F-4988-BC98-8126F199E7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F895341-7A4F-4988-BC98-8126F199E7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F895341-7A4F-4988-BC98-8126F199E7CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75CCB039-4CFC-4167-8C1B-2D08A7EE690C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75CCB039-4CFC-4167-8C1B-2D08A7EE690C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75CCB039-4CFC-4167-8C1B-2D08A7EE690C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75CCB039-4CFC-4167-8C1B-2D08A7EE690C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{62ED0246-7B98-4723-9307-F7B7B0AC5574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{62ED0246-7B98-4723-9307-F7B7B0AC5574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62ED0246-7B98-4723-9307-F7B7B0AC5574}.Release|Any CPU.ActiveCfg = Release|Any CPU
