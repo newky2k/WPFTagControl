@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TagControl.Common\TagControl.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="Themes\ColorsAndIcons.xaml">
       <SubType>Designer</SubType>
     </Page>

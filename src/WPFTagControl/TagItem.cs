@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using TagControl.Common;
 
 
 namespace WPFTagControl
@@ -39,17 +38,11 @@ namespace WPFTagControl
         {
         }
 
-        public TagItem(TagObject item)
+        public TagItem(object item, string displayText)
             : this()
         {
             Value = item;
-            Text = item.Text;
-        }
-
-        public TagItem(object item, string text) : this()
-        {
-            Value = item;
-            Text = text;
+            Text = displayText;
         }
 
         // Text
