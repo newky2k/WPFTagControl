@@ -7,7 +7,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using TagControl.Common;
 
 namespace WPFTagControl
 {
