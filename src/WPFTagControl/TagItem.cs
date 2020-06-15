@@ -8,20 +8,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using TagControl.Common;
 
+
 namespace WPFTagControl
 {
     /// <remarks>Based on work of adabyron http://stackoverflow.com/questions/15167809/how-can-i-create-a-tagging-control-similar-to-evernote-in-wpf</remarks>
     [DebuggerDisplay("{this.Text}")]
-    [TemplatePart(Name = "PART_InputBox", Type = typeof (AutoCompleteBox))]
-    [TemplatePart(Name = "PART_DeleteTagButton", Type = typeof (Button))]
-    [TemplatePart(Name = "PART_TagButton", Type = typeof (Button))]
+    [TemplatePart(Name = "PART_InputBox", Type = typeof(AutoCompleteBox))]
+    [TemplatePart(Name = "PART_DeleteTagButton", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_TagButton", Type = typeof(Button))]
     public class TagItem : Control
     {
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof (string),
-            typeof (TagItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string),
+            typeof(TagItem), new PropertyMetadata(null));
 
         private static readonly DependencyPropertyKey IsEditingPropertyKey =
-            DependencyProperty.RegisterReadOnly("IsEditing", typeof (bool), typeof (TagItem),
+            DependencyProperty.RegisterReadOnly("IsEditing", typeof(bool), typeof(TagItem),
                 new FrameworkPropertyMetadata(false));
 
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
@@ -31,7 +32,7 @@ namespace WPFTagControl
         static TagItem()
         {
             // lookless control, get default style from generic.xaml
-            DefaultStyleKeyProperty.OverrideMetadata(typeof (TagItem), new FrameworkPropertyMetadata(typeof (TagItem)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TagItem), new FrameworkPropertyMetadata(typeof(TagItem)));
         }
 
         public TagItem()
@@ -54,14 +55,14 @@ namespace WPFTagControl
         // Text
         public string Text
         {
-            get { return (string) GetValue(TextProperty); }
+            get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
 
         // IsEditing, readonly
         public bool IsEditing
         {
-            get { return (bool) GetValue(IsEditingProperty); }
+            get { return (bool)GetValue(IsEditingProperty); }
             internal set { SetValue(IsEditingPropertyKey, value); }
         }
 
@@ -83,7 +84,7 @@ namespace WPFTagControl
                 {
                     var b = s as Button;
                     var btnDelete = b.Template.FindName("PART_DeleteTagButton", b) as Button;
-                        // will only be found once button is loaded
+                    // will only be found once button is loaded
                     if (btnDelete != null)
                     {
                         btnDelete.Click -= btnDelete_Click; // make sure the handler is applied just once
@@ -98,7 +99,7 @@ namespace WPFTagControl
                 };
                 btn.MouseDoubleClick += (s, e) =>
                 {
-                  //  valueBeforeEditing = this.Text;
+                    //  valueBeforeEditing = this.Text;
                     var parent = GetParent();
                     parent?.RaiseTagDoubleClick(this);
                 };
@@ -127,9 +128,9 @@ namespace WPFTagControl
 
         static bool isDuplicate(TagControl tagControl, string compareTo)
         {
-            var duplicateCount = (from TagItem item in (IList) tagControl.ItemsSource
-                where item.Text.ToLower() == compareTo.ToLower()
-                select item).Count();
+            var duplicateCount = (from TagItem item in (IList)tagControl.ItemsSource
+                                  where item.Text.ToLower() == compareTo.ToLower()
+                                  select item).Count();
             if (duplicateCount > 1)
                 return true;
 
@@ -166,7 +167,7 @@ namespace WPFTagControl
                                     if (!string.IsNullOrEmpty(valueBeforeEditing))
                                     {
                                         parent.ApplyTemplate(this, true);
-                                        if(Text !=  valueBeforeEditing)
+                                        if (Text != valueBeforeEditing)
                                             parent.RaiseTagEdited(this);
                                     }
                                     else
@@ -185,10 +186,10 @@ namespace WPFTagControl
                                 if (string.IsNullOrWhiteSpace(Text))
                                 {
                                     inputBox_LostFocus(this, new RoutedEventArgs());
-                                    var previousTagIndex = ((IList) parent.ItemsSource).Count - 1;
+                                    var previousTagIndex = ((IList)parent.ItemsSource).Count - 1;
                                     if (previousTagIndex < 0) break;
 
-                                    var previousTag = ((IList) parent.ItemsSource)[previousTagIndex] as TagItem;
+                                    var previousTag = ((IList)parent.ItemsSource)[previousTagIndex] as TagItem;
                                     previousTag.Focus();
                                     previousTag.IsEditing = true;
                                 }
@@ -218,12 +219,12 @@ namespace WPFTagControl
                         Text = valueBeforeEditing;
                     else if (string.IsNullOrEmpty(valueBeforeEditing) && !isEscapeClicked)
                         parent.ApplyTemplate(this);
-                    else if(valueBeforeEditing != Text && !isEscapeClicked)
+                    else if (valueBeforeEditing != Text && !isEscapeClicked)
                         parent.RaiseTagEdited(this);
                     else if (isEscapeClicked)
                     {
                         this.Text = valueBeforeEditing;
-                        if(Text== null)
+                        if (Text == null)
                             parent?.RemoveTag(this, true);
                     }
                 }
@@ -236,14 +237,14 @@ namespace WPFTagControl
             {
                 if (!string.IsNullOrWhiteSpace(valueBeforeEditing))
                     this.Text = valueBeforeEditing;
-                if(!isEscapeClicked && !string.IsNullOrEmpty(this.Text))
+                if (!isEscapeClicked && !string.IsNullOrEmpty(this.Text))
                     parent?.RemoveTag(this);
-                else if(string.IsNullOrEmpty(this.Text))
+                else if (string.IsNullOrEmpty(this.Text))
                     parent?.RemoveTag(this, true);
 
                 //if (sender != null && !(sender as AutoCompleteBox).IsDropDownOpen)
                 //{
-                 IsEditing = false;
+                IsEditing = false;
                 //}
             }
             isEscapeClicked = false;
@@ -265,7 +266,7 @@ namespace WPFTagControl
         private static T FindUpVisualTree<T>(DependencyObject initial) where T : DependencyObject
         {
             var current = initial;
-            while (current != null && current.GetType() != typeof (T))
+            while (current != null && current.GetType() != typeof(T))
             {
                 current = VisualTreeHelper.GetParent(current);
             }
