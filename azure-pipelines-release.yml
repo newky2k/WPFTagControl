@@ -49,7 +49,7 @@ steps:
   displayName: Copy Files to $(build.artifactstagingdirectory)
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/DSoft.*.nupkg'
+    Contents: '**/AltWPFTagControl.*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'
     flattenFolders: true
 
