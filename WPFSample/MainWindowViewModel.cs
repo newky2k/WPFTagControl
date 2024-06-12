@@ -5,10 +5,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using TagControl.Common;
 using WPFTagControl;
 
-namespace TestUI
+namespace WPFSample
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TagControl.Common
+namespace WPFSample
 {
     public class TagObject
     {
