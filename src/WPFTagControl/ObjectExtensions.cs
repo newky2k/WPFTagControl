@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace WPFTagControl
 {
+    /// <summary>
+    /// Extension for any object
+    /// </summary>
     public static class ObjectExtensions
     {
+        /// <summary>
+        /// Gets the member value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="target">The target.</param>
+        /// <param name="memberName">Name of the member.</param>
+        /// <returns></returns>
         public static T GetMemberValue<T>(this object target, string memberName)
         {
             object objValue = null;
