@@ -17,15 +17,27 @@ namespace WPFTagControl
     [TemplatePart(Name = "PART_TagButton", Type = typeof(Button))]
     public class TagItem : Control
     {
+        /// <summary>
+        /// The text property
+        /// </summary>
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string),
             typeof(TagItem), new PropertyMetadata(null));
 
+        /// <summary>
+        /// The is editing property key
+        /// </summary>
         private static readonly DependencyPropertyKey IsEditingPropertyKey =
             DependencyProperty.RegisterReadOnly("IsEditing", typeof(bool), typeof(TagItem),
                 new FrameworkPropertyMetadata(false));
 
+        /// <summary>
+        /// The is editing property
+        /// </summary>
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// The value
+        /// </summary>
         public object Value = null;
 
         static TagItem()
@@ -34,10 +46,18 @@ namespace WPFTagControl
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TagItem), new FrameworkPropertyMetadata(typeof(TagItem)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TagItem"/> class.
+        /// </summary>
         public TagItem()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TagItem"/> class.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="displayText">The display text.</param>
         public TagItem(object item, string displayText)
             : this()
         {
@@ -46,6 +66,12 @@ namespace WPFTagControl
         }
 
         // Text
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -53,6 +79,12 @@ namespace WPFTagControl
         }
 
         // IsEditing, readonly
+        /// <summary>
+        /// Gets a value indicating whether this instance is editing.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is editing; otherwise, <c>false</c>.
+        /// </value>
         public bool IsEditing
         {
             get { return (bool)GetValue(IsEditingProperty); }
@@ -60,6 +92,9 @@ namespace WPFTagControl
         }
 
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             var inputBox = GetTemplateChild("PART_InputBox") as AutoCompleteBox;

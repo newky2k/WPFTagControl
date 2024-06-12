@@ -17,15 +17,27 @@ namespace WPFTagControl
     [TemplatePart(Name = "PART_CreateTagButton", Type = typeof (Button))]
     public class TagControl : ListBox
     {
+        /// <summary>
+        /// The tags property
+        /// </summary>
         public static readonly DependencyProperty TagsProperty = DependencyProperty.Register("Tags",typeof(IEnumerable), typeof(TagControl), new FrameworkPropertyMetadata(null, OnTagsChanged));
 
+        /// <summary>
+        /// The add new tag text property
+        /// </summary>
         public static readonly DependencyProperty AddNewTagTextProperty = DependencyProperty.Register("AddNewTagText",
             typeof (string), typeof (TagControl), new PropertyMetadata(null));
 
+        /// <summary>
+        /// The is editing property key
+        /// </summary>
         private static readonly DependencyPropertyKey IsEditingPropertyKey =
             DependencyProperty.RegisterReadOnly("IsEditing", typeof (bool), typeof (TagControl),
                 new FrameworkPropertyMetadata(false));
 
+        /// <summary>
+        /// The is editing property
+        /// </summary>
         public static readonly DependencyProperty IsEditingProperty = IsEditingPropertyKey.DependencyProperty;
 
         static TagControl()
@@ -35,6 +47,9 @@ namespace WPFTagControl
                 new FrameworkPropertyMetadata(typeof (TagControl)));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TagControl"/> class.
+        /// </summary>
         public TagControl()
         {
             TagAdded += (s, e) => RaiseTagsChanged();
@@ -43,6 +58,12 @@ namespace WPFTagControl
             
         }
 
+        /// <summary>
+        /// Gets or sets the tags.
+        /// </summary>
+        /// <value>
+        /// The tags.
+        /// </value>
         public IEnumerable Tags
         {
             get { return (IEnumerable)GetValue(TagsProperty); }
@@ -50,6 +71,12 @@ namespace WPFTagControl
         }
 
 
+        /// <summary>
+        /// Gets or sets the add new tag text.
+        /// </summary>
+        /// <value>
+        /// The add new tag text.
+        /// </value>
         public string AddNewTagText
         {
             get { return (string) GetValue(AddNewTagTextProperty); }
@@ -57,6 +84,12 @@ namespace WPFTagControl
         }
 
         // IsEditing, readonly
+        /// <summary>
+        /// Gets a value indicating whether this instance is editing.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is editing; otherwise, <c>false</c>.
+        /// </value>
         public bool IsEditing
         {
             get { return (bool) GetValue(IsEditingProperty); }
@@ -113,18 +146,41 @@ namespace WPFTagControl
            // SelectedTags.Add(((TagObject)addedTag.Value));
         }
 
+        /// <summary>
+        /// Occurs when [tag click].
+        /// </summary>
         public event EventHandler<TagEventArgs> TagClick;
+        /// <summary>
+        /// Occurs when [tag added].
+        /// </summary>
         public event EventHandler<TagEventArgs> TagAdded;
+        /// <summary>
+        /// Occurs when [tag removed].
+        /// </summary>
         public event EventHandler<TagEventArgs> TagRemoved;
+        /// <summary>
+        /// Occurs when [tag edited].
+        /// </summary>
         public event EventHandler<TagEventArgs> TagEdited;
+        /// <summary>
+        /// Occurs when [tags changed].
+        /// </summary>
         public event EventHandler<TagsChangedEventArgs> TagsChanged;
 
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate" />.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             ApplyTemplate();
         }
 
+        /// <summary>
+        /// Applies the template.
+        /// </summary>
+        /// <param name="appliedTag">The applied tag.</param>
+        /// <param name="cancelEvent">if set to <c>true</c> [cancel event].</param>
         public void ApplyTemplate(TagItem appliedTag = null, bool cancelEvent = false)
         {
             var createBtn = GetTemplateChild("PART_CreateTagButton") as Button;
@@ -185,6 +241,10 @@ namespace WPFTagControl
                 }
             }
         }
+        /// <summary>
+        /// Raises the tag edited.
+        /// </summary>
+        /// <param name="tag">The tag.</param>
         public void RaiseTagEdited(TagItem tag)
         {
             UpdateSelectedTagsOnEdit();
