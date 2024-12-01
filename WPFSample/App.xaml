@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WPFTagControl;component/Themes/ColorsAndIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
