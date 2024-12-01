@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net461;net8-windows7.0;</TargetFrameworks>
+		<TargetFrameworks>net461;net8-windows7.0;net9-windows7.0;</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>WPFTagControl</RootNamespace>
 		<AssemblyName>WPFTagControl</AssemblyName>
@@ -25,7 +25,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-
 		<PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.1.94" />
 		<PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
 	</ItemGroup>

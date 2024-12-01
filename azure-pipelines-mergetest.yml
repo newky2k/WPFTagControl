@@ -12,17 +12,17 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  netVersion: '9.x'
 
 steps:  
 - task: NuGetToolInstaller@1
   displayName: Install Latest Nuget
 
-#- task: Bash@3
-#  displayName: Install MAUI
-#  inputs:
-#    targetType: 'inline'
-#    script: 
-#      dotnet workload install android ios maccatalyst tvos macos maui wasm-tools
+- task: UseDotNet@2
+  displayName: 'Install .NET sdk'
+  inputs:
+    packageType: 'sdk'
+    version: $(netVersion)
 
 - task: DotNetCoreCLI@2
   inputs:
