@@ -7,13 +7,26 @@
 		<PackageProjectUrl>https://github.com/newky2k/WPFTagControl</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Copyright>Copyright © 2024 DSoft</Copyright>
+		<Copyright>Copyright © 2026 DSoft</Copyright>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Authors>newky2k</Authors>
-		<Owners>newky2k</Owners>
+		<Company>newky2k</Company>
+		<PackageIcon>DSIcon.png</PackageIcon>
 		<LangVersion>Latest</LangVersion>
 		<Configurations>Debug;Release</Configurations>
 		<NoWarn>1701;1702;CS8002</NoWarn>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\DSIcon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
 		<DebugSymbols>true</DebugSymbols>

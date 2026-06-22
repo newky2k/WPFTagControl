@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/.ci/">
+    <File Path="azure-pipelines-mergetest.yml" />
+    <File Path="azure-pipelines-release.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="WPFSample/WPFSample.csproj" />
+  </Folder>
+  <Project Path="src/WPFTagControl/WPFTagControl.csproj" />
+</Solution>

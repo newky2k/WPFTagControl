@@ -12,7 +12,7 @@ namespace WPFTagControl
 {
     /// <remarks>Based on work of adabyron http://stackoverflow.com/questions/15167809/how-can-i-create-a-tagging-control-similar-to-evernote-in-wpf</remarks>
     [DebuggerDisplay("{this.Text}")]
-    [TemplatePart(Name = "PART_InputBox", Type = typeof(AutoCompleteBox))]
+    [TemplatePart(Name = "PART_InputBox", Type = typeof(TextBox))]
     [TemplatePart(Name = "PART_DeleteTagButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_TagButton", Type = typeof(Button))]
     public class TagItem : Control
@@ -97,7 +97,7 @@ namespace WPFTagControl
         /// </summary>
         public override void OnApplyTemplate()
         {
-            var inputBox = GetTemplateChild("PART_InputBox") as AutoCompleteBox;
+            var inputBox = GetTemplateChild("PART_InputBox") as TextBox;
             if (inputBox != null)
             {
                 inputBox.LostFocus += inputBox_LostFocus;
@@ -166,17 +166,15 @@ namespace WPFTagControl
         }
 
         /// <summary>
-        ///     When an AutoCompleteBox is created, set the focus to the textbox.
+        ///     When the input TextBox is created, set the focus to it.
         ///     Wire PreviewKeyDown event to handle Escape/Enter keys
         /// </summary>
-        /// <remarks>AutoCompleteBox.Focus() is broken: http://stackoverflow.com/questions/3572299/autocompletebox-focus-in-wpf</remarks>
         void inputBox_Loaded(object sender, RoutedEventArgs e)
         {
-            var acb = sender as AutoCompleteBox;
+            var acb = sender as TextBox;
             if (acb != null)
             {
-                var tb = acb.Template.FindName("Text", acb) as TextBox;
-                tb?.Focus();
+                acb.Focus();
 
                 // PreviewKeyDown, because KeyDown does not bubble up for Enter
                 acb.PreviewKeyDown += (s, e1) =>
@@ -231,7 +229,7 @@ namespace WPFTagControl
         private bool isEscapeClicked = false;
 
         /// <summary>
-        ///     Set IsEditing to false when the AutoCompleteBox loses keyboard focus.
+        ///     Set IsEditing to false when the input TextBox loses keyboard focus.
         ///     This will change the template, displaying the tag as a button.
         /// </summary>
         void inputBox_LostFocus(object sender, RoutedEventArgs e)
@@ -256,10 +254,7 @@ namespace WPFTagControl
                             parent?.RemoveTag(this, true);
                     }
                 }
-                if (!(sender as AutoCompleteBox).IsDropDownOpen)
-                {
-                    IsEditing = false;
-                }
+                IsEditing = false;
             }
             else
             {
@@ -270,10 +265,7 @@ namespace WPFTagControl
                 else if (string.IsNullOrEmpty(this.Text))
                     parent?.RemoveTag(this, true);
 
-                //if (sender != null && !(sender as AutoCompleteBox).IsDropDownOpen)
-                //{
                 IsEditing = false;
-                //}
             }
             isEscapeClicked = false;
             if (parent != null)

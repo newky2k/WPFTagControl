@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net461;net8-windows7.0;net9-windows7.0;</TargetFrameworks>
+		<TargetFrameworks>net461;net10.0-windows7.0;</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>WPFTagControl</RootNamespace>
 		<AssemblyName>WPFTagControl</AssemblyName>
@@ -21,14 +21,7 @@
 		<PackageTags>WPF Control Token Tag</PackageTags>
 		<PackageReleaseNotes>Refactored into a multi-targeting .Net Core compatible library</PackageReleaseNotes>
 		<AssemblyVersion>2.0.0.0</AssemblyVersion>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="DotNetProjects.WpfToolkit.Input" Version="6.1.94" />
-		<PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
-	</ItemGroup>
-
 
 	<ItemGroup>
 		<Page Update="Themes\ColorsAndIcons.xaml">
@@ -41,8 +34,5 @@
 			<SubType>Designer</SubType>
 		</Page>
 	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="../../README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
+	
 </Project>

@@ -6,7 +6,7 @@ Alternative version of Kai Timmermann's WPF control to add/remove/edit tags/toke
       - Can be styled/themed to change the color, foreground and tags background
       - Tags are added via the datamodel not through the control itself
 
-![Screenshot](Screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/newky2k/WPFTagControl/refs/heads/master/Screenshot.png)
 
 ## Getting Started
 
