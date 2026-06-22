@@ -5,8 +5,9 @@ Alternative version of Kai Timmermann's WPF control to add/remove/edit tags/toke
       - Scrollable view when there are two many Tags
       - Can be styled/themed to change the color, foreground and tags background
       - Tags are added via the datamodel not through the control itself
+      - No external runtime dependencies (tag editing uses a standard WPF TextBox)
 
-![Screenshot](Screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/newky2k/WPFTagControl/refs/heads/master/Screenshot.png)
 
 ## Getting Started
 
