@@ -16,10 +16,11 @@
 			- Scrollable view when there are two many Tags
 			- Can be styled/themed to change the color, foreground and tags background
 			- Tags are added via the datamodel not through the control itself
-			- Works with .Net Framework and .Net Core 3.x and above
+			- No external runtime dependencies (tag editing uses a standard WPF TextBox)
+			- Works with .Net Framework 4.6.1 and .Net 10
 		</Description>
 		<PackageTags>WPF Control Token Tag</PackageTags>
-		<PackageReleaseNotes>Refactored into a multi-targeting .Net Core compatible library</PackageReleaseNotes>
+		<PackageReleaseNotes>Removed the dependency on DotNetProjects.WpfToolkit - tag editing now uses a standard WPF TextBox, so the package has no external runtime dependencies.</PackageReleaseNotes>
 		<AssemblyVersion>2.0.0.0</AssemblyVersion>
 	</PropertyGroup>
 
