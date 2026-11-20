@@ -7,7 +7,7 @@ Alternative version of Kai Timmermann's WPF control to add/remove/edit tags/toke
       - Tags are added via the datamodel not through the control itself
       - No external runtime dependencies (tag editing uses a standard WPF TextBox)
 
-![Screenshot](https://raw.githubusercontent.com/newky2k/WPFTagControl/refs/heads/master/Screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/newky2k/WPFTagControl/refs/heads/main/Screenshot.png)
 
 ## Getting Started
 
