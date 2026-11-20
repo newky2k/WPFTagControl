@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net461;net10.0-windows7.0;</TargetFrameworks>
+		<TargetFrameworks>net461;net10.0-windows7.0;net11.0-windows7.0</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>WPFTagControl</RootNamespace>
 		<AssemblyName>WPFTagControl</AssemblyName>
@@ -17,7 +17,7 @@
 			- Can be styled/themed to change the color, foreground and tags background
 			- Tags are added via the datamodel not through the control itself
 			- No external runtime dependencies (tag editing uses a standard WPF TextBox)
-			- Works with .Net Framework 4.6.1 and .Net 10
+			- Works with .Net Framework 4.6.1, .Net 10 and .Net 11
 		</Description>
 		<PackageTags>WPF Control Token Tag</PackageTags>
 		<PackageReleaseNotes>Removed the dependency on DotNetProjects.WpfToolkit - tag editing now uses a standard WPF TextBox, so the package has no external runtime dependencies.</PackageReleaseNotes>

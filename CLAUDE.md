@@ -6,6 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `AltWPFTagControl` — a WPF tag/token control (add/remove/edit tags), forked variant of Kai Timmermann's control. Published as a NuGet package (`PackageId` = `AltWPFTagControl`, assembly = `WPFTagControl`). Key differences from the original: data-bound to arbitrary objects via `Tags` + `DisplayMemberPath`, scrollable when tags overflow, themeable, and tags are driven by the data model rather than control-internal state.
 
+## Branching
+
+- `development` is the working branch: branch from it and open pull requests into it. Never commit or open a pull request directly against `main`.
+- `main` is the release branch. Every push to `main` runs `release.yml`, which publishes the package to nuget.org and creates a GitHub release, so only merge `development` into `main` when a release is intended, and only when asked to release.
+
 ## Build / run
 
 Solution file is `WPFTagControl.slnx` (new XML solution format; the old `.sln` is deleted). Use the `.slnx` explicitly — older `dotnet`/`msbuild` may not understand it; build the project files directly if so.
@@ -14,15 +19,15 @@ Solution file is `WPFTagControl.slnx` (new XML solution format; the old `.sln` i
 dotnet restore WPFTagControl.slnx
 dotnet build WPFTagControl.slnx -c Release
 dotnet build src/WPFTagControl/WPFTagControl.csproj        # library only
-dotnet run --project WPFSample/WPFSample.csproj            # run the sample app (net9.0-windows)
+dotnet run --project WPFSample/WPFSample.csproj            # run the sample app (net10.0-windows or net11.0-windows)
 ```
 
-- Library multi-targets `net461;net8-windows7.0;net9-windows7.0`. The sample targets `net9.0-windows`.
+- Library multi-targets `net461;net10.0-windows7.0;net11.0-windows7.0`. The sample targets `net10.0-windows` and `net11.0-windows`. Build with the .NET 10 and .NET 11 SDKs; on Linux or macOS add `-p:EnableWindowsTargeting=true`.
 - `GeneratePackageOnBuild=true` (set in `Directory.Build.props`) — every build of the library produces a `.nupkg`. Release builds add SourceLink + embedded PDB.
 - Assembly is strong-name signed via `DSoft.snk` (referenced in `Directory.Build.props`); the key file is not in the repo, so signing may fail locally on a fresh clone.
 - No test project exists. `WPFSample/` is the manual verification harness, not automated tests.
 
-CI: `azure-pipelines-release.yml` (triggers on `master`) builds Release and publishes `DSoft.*.nupkg`. `azure-pipelines-mergetest.yml` runs on PRs.
+CI is GitHub Actions (`.github/workflows/`) on `windows-latest`: `ci.yml` builds Release for pull requests into `main` and `development` and publishes nothing. `release.yml` runs on every push to `main` (changes only to Markdown or workflow files are skipped; run it by hand to test a workflow change), builds Release as `3.1.<yyMM>.<run number>` plus `RELEASE_SUFFIX` (empty for a stable version), uploads `AltWPFTagControl` as the `drop` artifact, pushes it to nuget.org with Trusted Publishing (OIDC, `NUGET_USER` secret, `nuget` environment), then tags the commit `v<version>` and creates a GitHub release with the package attached.
 
 ## Architecture
 
